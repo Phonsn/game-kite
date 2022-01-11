@@ -68,7 +68,7 @@ public class Gun : MonoBehaviour
         Debug.DrawRay(projectileSpawn[0].transform.position, fwd * 100, Color.black);
     }
 
-    private void Start()
+    private void Awake()
     {
         muzzleFlash = GetComponent<MuzzleFlash>();
         if(fireMode == FireMode.Single)

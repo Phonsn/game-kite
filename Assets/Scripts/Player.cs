@@ -18,7 +18,7 @@ public class Player : LivingEntity
         playerController = GetComponent<TwinStickController>();
         gunController = GetComponent<GunController>();
         trailRenderer = GetComponent<TrailRenderer>();
-        gunController.EquipGun(0);
+        gunController.EquipPrimaryGun();
         ControlTrailRenderer(false);
     }
 

@@ -64,11 +64,18 @@ public class TwinStickController : MonoBehaviour
         playerControls.Player.Sprint.canceled += SprintStop;
 
         playerControls.Player.PlaceMine.performed += PlaceMine;
+
+        playerControls.Player.ChangeGun.performed += ChangeGun;
     }
 
     private void ShootStart(InputAction.CallbackContext obj)
     {
         gunController.OnTriggerHold();
+    }
+
+    private void ChangeGun(InputAction.CallbackContext obj)
+    {
+        gunController.ChangeGun();
     }
 
     private void ShootStop(InputAction.CallbackContext obj)
