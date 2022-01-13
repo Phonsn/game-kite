@@ -10,6 +10,7 @@ public class Spawner : MonoBehaviour
     public SpawnType spawnType;
     public Enemy enemyToSpawn;
     public Color skinColor = Color.black;
+    public int damage;
 
     public float timeBeforeFirstSpawn;
     public float timeBetweenSpawns;
@@ -62,7 +63,7 @@ public class Spawner : MonoBehaviour
             if(enemiesSpawned < numberOfSpawns)
             {
                 Enemy spawnedEnemy = Instantiate(enemyToSpawn, transform.position, Quaternion.identity) as Enemy;
-                spawnedEnemy.SetCharacteristics(enemyTypeAsInt, enemyMoveSpeed,enemyHealth,skinColor);
+                spawnedEnemy.SetCharacteristics(enemyTypeAsInt, enemyMoveSpeed,enemyHealth, damage, skinColor);
 
                 enemiesSpawned++;
             }

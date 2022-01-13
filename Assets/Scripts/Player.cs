@@ -27,6 +27,22 @@ public class Player : LivingEntity
         trailRenderer.enabled = status;
     }
 
+    public override void TakeDamage(float damage)
+    {
+        Debug.Log("Take Damage: " + damage);
+        StartCoroutine("FlashRed");
+        base.TakeDamage(damage);
+    }
+
+    private IEnumerator FlashRed()
+    {
+        Transform flashObject = transform.Find("Body/PlayerDummy");
+
+        Color originalColor = flashObject.GetComponent<Renderer>().material.color;
+        flashObject.GetComponent<Renderer>().material.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        flashObject.GetComponent<Renderer>().material.color = originalColor;
+    }
     
     // Update is called once per frame
     void Update()

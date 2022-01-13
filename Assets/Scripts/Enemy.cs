@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Enemy : LivingEntity
 {
-    public enum State {Idle, Waypoint, Chasing, Attacking };
+    public enum State {Idle, GoToWaypoint, ChasingPlayer, Attacking };
     UnityEngine.AI.NavMeshAgent pathfinder;
 
     // Enemy Characteristics
@@ -20,11 +20,19 @@ public class Enemy : LivingEntity
     public int pointsPerKill = 5;
     public bool devTest = false;
     public Color skinColor = Color.black;
+    public int damage;
+    public float timeBetweenAttacks = 1.5f;
+
+    //Animation
+    public Animation anim;
 
     // Script internal variables
     float myCollisionRadius;
     float waypointCollisionRadius;
     float playerCollisionRadius;
+    float stoppingDistance = 0.5f;
+    float attackDuration;
+    float nextAttackTime;
 
     float playerLastSpotted;
 
@@ -41,23 +49,31 @@ public class Enemy : LivingEntity
 
     // Collision Detection
 
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.blue;
-    //    Gizmos.DrawWireSphere(transform.position, playerDetectionRadius);
-    //}
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, playerDetectionRadius);
+    }
 
     private void Awake()
     {
         // GENERAL SETUP
-        myCollisionRadius = GetComponent<CapsuleCollider>().radius;
+        myCollisionRadius = GetComponent<CapsuleCollider>().radius * transform.localScale.x;
         pathfinder = GetComponent<UnityEngine.AI.NavMeshAgent>();
         pathfinder.speed = moveSpeed;
         playerLastSpotted = Time.time - 100;
         dead = false;
 
-        skinMaterial = GetComponent<Renderer>().material;
-        skinMaterial.color = skinColor;
+        if (GetComponent<Animation>() != null)
+        {
+            anim = GetComponent<Animation>();
+        }
+
+        if (GetComponent<Renderer>() != null)
+        {
+            skinMaterial = GetComponent<Renderer>().material;
+            skinMaterial.color = skinColor;
+        }
     }
 
     protected override void Start()
@@ -84,12 +100,12 @@ public class Enemy : LivingEntity
             if(enemyType == 1)
             {
                 target = waypoint;
-                currentState = State.Waypoint;
+                currentState = State.GoToWaypoint;
                 statusLight.GetComponent<Renderer>().material.color = Color.black;
             } else if (enemyType == 2)
             {
                 target = playerT;
-                currentState = State.Chasing;
+                currentState = State.ChasingPlayer;
                 statusLight.GetComponent<Renderer>().material.color = Color.red;
             } else
             {
@@ -160,41 +176,47 @@ public class Enemy : LivingEntity
                     targetPosition = playerT.position;
 
                     dirToTarget = (playerT.position - transform.position).normalized;
-                    targetPosition = target.position - dirToTarget * (myCollisionRadius + playerCollisionRadius + 0.05f);
+                    targetPosition = target.position - dirToTarget * (myCollisionRadius + playerCollisionRadius + stoppingDistance);
 
-                    currentState = State.Chasing;
+                    currentState = State.ChasingPlayer;
                     statusLight.GetComponent<Renderer>().material.color = Color.red;
                 }
                 else
                 {
                     float targetCollisionRadius = waypointCollisionRadius;
 
-                    //SET TARGET
+                    //IDENTIFY TARGET
                     Vector3 dirToPlayer = (playerT.position - transform.position).normalized;
-                    Ray ray = new Ray(transform.position, dirToPlayer);
+                    Ray ray = new Ray(transform.position + Vector3.up, dirToPlayer);
+
+                    //Debug.DrawLine(transform.position, playerT.position, Color.green, refreshRate);
 
                     RaycastHit hit;
 
                     if (Physics.Raycast(ray, out hit))
                     {
+                        //Debug.Log(hit.collider.name);
                         if (hit.distance <= playerDetectionRadius && hit.collider.name == "Player")
                         {
                             target = playerT;
                             targetCollisionRadius = playerCollisionRadius;
                             playerLastSpotted = Time.time;
+                            currentState = State.ChasingPlayer;
                         }
                     }
 
                     if (Time.time > playerLastSpotted + followPlayerDuration)
                     {
                         target = waypoint;
+                        currentState = State.GoToWaypoint;
                     }
 
+                    // SET TARGET POSITION
                     targetPosition = target.position;
                     if (target.name == "Player")
                     {
                         dirToTarget = (target.position - transform.position).normalized;
-                        targetPosition = target.position - dirToTarget * (myCollisionRadius + targetCollisionRadius + 0.05f);
+                        targetPosition = target.position - dirToTarget * (myCollisionRadius + targetCollisionRadius + stoppingDistance);
                     }
 
                     //SHOW CURRENT STATUS
@@ -217,10 +239,33 @@ public class Enemy : LivingEntity
                 targetPosition = transform.position;
                 statusLight.GetComponent<Renderer>().material.color = Color.black;
             }
-            
+
             if (!dead)
             {
                 pathfinder.SetDestination(targetPosition);
+            }
+
+            if(pathfinder.remainingDistance <= 2 && currentState == State.ChasingPlayer) transform.LookAt(playerT.position);
+
+            if (currentState == State.Idle)
+            {
+                anim.CrossFade("Idle", 0.1f);
+            }
+            else if(pathfinder.remainingDistance <= 0.6)
+            {
+                if(Time.time >= nextAttackTime)
+                {
+                    anim.CrossFade("Lumbering", 0.1f);
+                    nextAttackTime = Time.time + timeBetweenAttacks;
+                    playerT.GetComponent<Player>().TakeDamage(damage);
+                } else
+                {
+                    anim.CrossFade("Idle", 0.1f);
+                }
+                
+            } else
+            {
+                anim.CrossFade("Walk", 0.1f);
             }
 
             yield return new WaitForSeconds(refreshRate);
@@ -241,19 +286,22 @@ public class Enemy : LivingEntity
                 OnDeathStatic(pointsPerKill);
             }
             AudioManager.instance.PlaySound("EnemyDeath", transform.position);
-            deathEffect.GetComponent<ParticleSystemRenderer>().material = skinMaterial;
+            if(skinMaterial!=null)deathEffect.GetComponent<ParticleSystemRenderer>().material = skinMaterial;
             Destroy(Instantiate(deathEffect, hitPoint, Quaternion.FromToRotation(Vector3.forward, hitDirection)) as GameObject, particleLifeTime);
         }
         base.TakeHit(damage, hitPoint, hitDirection);
     }
 
-    public void SetCharacteristics(int parEnemyType, float parMoveSpeed, float parHealth, Color skinColor) {
+    public void SetCharacteristics(int parEnemyType, float parMoveSpeed, float parHealth, int parDamage, Color skinColor) {
         enemyType = parEnemyType;
         startingHealth = parHealth;
         pathfinder.speed = parMoveSpeed;
+        damage = parDamage;
 
-        
-        skinMaterial.color = skinColor;
-        originalColor = skinMaterial.color;
+        if(skinMaterial!=null)
+        {
+            skinMaterial.color = skinColor;
+            originalColor = skinMaterial.color;
+        }
     }
 }
