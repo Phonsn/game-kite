@@ -1340,7 +1340,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5123473145380863719}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -19, y: 0, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1361,7 +1361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8847037c2c74ec42b948379c7a2792a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 50
+  startingHealth: 10000
 --- !u!114 &5123473145380863712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1386,9 +1386,9 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5123473145380863714}
+      - m_Target: {fileID: 11500000, guid: 6e2566c0a86414542a01ef493396e439, type: 3}
         m_TargetAssemblyTypeName: TwinStickController, Assembly-CSharp
-        m_MethodName: OnDeviceChange
+        m_MethodName: 
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -19,7 +19,6 @@ public class Enemy : LivingEntity
     public GameObject deathEffect;
     public int pointsPerKill = 5;
     public bool devTest = false;
-    public Color skinColor = Color.black;
     public int damage;
     public float timeBetweenAttacks = 1.5f;
 
@@ -46,6 +45,7 @@ public class Enemy : LivingEntity
     State currentState;
 
     bool playerDied;
+    bool enemyHasAnimation = false;
 
     // Collision Detection
 
@@ -67,12 +67,7 @@ public class Enemy : LivingEntity
         if (GetComponent<Animation>() != null)
         {
             anim = GetComponent<Animation>();
-        }
-
-        if (GetComponent<Renderer>() != null)
-        {
-            skinMaterial = GetComponent<Renderer>().material;
-            skinMaterial.color = skinColor;
+            enemyHasAnimation = true;
         }
     }
 
@@ -86,6 +81,7 @@ public class Enemy : LivingEntity
             playerCollisionRadius = playerT.GetComponent<CharacterController>().radius;
             playerEntity = playerT.GetComponent<LivingEntity>();
             playerDied = false;
+            nextAttackTime = Time.time + 1f; // First attacj only possible 1 second after spawning
         }
 
         if (GameObject.FindGameObjectWithTag("Waypoint") != null)
@@ -249,23 +245,23 @@ public class Enemy : LivingEntity
 
             if (currentState == State.Idle)
             {
-                anim.CrossFade("Idle", 0.1f);
+                if(enemyHasAnimation) anim.CrossFade("Idle", 0.1f);
             }
             else if(pathfinder.remainingDistance <= 0.6)
             {
                 if(Time.time >= nextAttackTime)
                 {
-                    anim.CrossFade("Lumbering", 0.1f);
+                    if (enemyHasAnimation) anim.CrossFade("Lumbering", 0.1f);
                     nextAttackTime = Time.time + timeBetweenAttacks;
                     playerT.GetComponent<Player>().TakeDamage(damage);
                 } else
                 {
-                    anim.CrossFade("Idle", 0.1f);
+                    if (enemyHasAnimation) anim.CrossFade("Idle", 0.1f);
                 }
                 
             } else
             {
-                anim.CrossFade("Walk", 0.1f);
+                if (enemyHasAnimation) anim.CrossFade("Walk", 0.1f);
             }
 
             yield return new WaitForSeconds(refreshRate);
@@ -286,7 +282,6 @@ public class Enemy : LivingEntity
                 OnDeathStatic(pointsPerKill);
             }
             AudioManager.instance.PlaySound("EnemyDeath", transform.position);
-            if(skinMaterial!=null)deathEffect.GetComponent<ParticleSystemRenderer>().material = skinMaterial;
             Destroy(Instantiate(deathEffect, hitPoint, Quaternion.FromToRotation(Vector3.forward, hitDirection)) as GameObject, particleLifeTime);
         }
         base.TakeHit(damage, hitPoint, hitDirection);
