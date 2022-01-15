@@ -21,13 +21,14 @@ public class Gun : MonoBehaviour
     public float reloadTime = .3f;
     public Sprite gunImage;
 
-    [Header("Granade")]
+    [Header("Grenade")]
     public Grenade grenade;
     public float shootForce, upwardForce;
 
     [Header("Projectile")]
     public Projectiles projectile;
     public float muzzleVelocity = 35;
+    public Vector2 minMaxSpread = new Vector2(0f, 0f);
 
     [Header("Graphics")]
     public GameObject equippedMagazine;
@@ -148,6 +149,7 @@ public class Gun : MonoBehaviour
                     Projectiles newProjectile = Instantiate(projectile, projectileSpawn[i].position, projectileSpawn[i].rotation) as Projectiles;
                     newProjectile.SetSpeed(muzzleVelocity);
                     newProjectile.SetDamage(damage);
+                    newProjectile.SetSpread(minMaxSpread);
                 } else if (projectileType == ProjectileType.Grenade)
                 {
                     Grenade newGrenade = Instantiate(grenade, projectileSpawn[i].position, projectileSpawn[i].rotation) as Grenade;

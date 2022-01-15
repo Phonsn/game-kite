@@ -20835,7 +20835,7 @@ MonoBehaviour:
   enemyHealth: 2
   enemyMoveSpeed: 3
   numberOfSpawns: 15
-  active: 0
+  active: 1
 --- !u!23 &3794930592319899569
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -21061,7 +21061,7 @@ MonoBehaviour:
   timeBetweenSpawns: 0.1
   enemyHealth: 3
   enemyMoveSpeed: 3
-  numberOfSpawns: 10
+  numberOfSpawns: 30
   active: 1
 --- !u!4 &5850619957168612726
 Transform:
