@@ -274,14 +274,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2d6c9c65d5c0764d99ffbb64fbe59e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireMode: 1
+  fireMode: 0
   projectileType: 0
   projectileSpawn:
   - {fileID: 2678633144868293964}
   damage: 1
   msBetweenShots: 100
   burstCount: 3
-  projectilesPerMag: 15
+  projectilesPerMag: 20
   reloadTime: 0.5
   gunImage: {fileID: 21300000, guid: fe61fd25805c02542afcc1717c59c1cb, type: 3}
   grenade: {fileID: 0}
@@ -289,6 +289,7 @@ MonoBehaviour:
   upwardForce: 0
   projectile: {fileID: 3367149340875921683, guid: e3330959c0408784a9845505fb9d4d5b, type: 3}
   muzzleVelocity: 35
+  minMaxSpread: {x: 2, y: 4}
   equippedMagazine: {fileID: 9196545054011642963}
   magazinePrefab: {fileID: 808644116034418329, guid: 0bb780daf2172ae4885a48d5d3c48cd0, type: 3}
   shell: {fileID: 7159710373346791728, guid: 1790d0fb29bdf274eb68a8a243bd0fcc, type: 3}

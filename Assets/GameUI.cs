@@ -8,6 +8,7 @@ public class GameUI : MonoBehaviour
 
     public Image weaponImageHolder;
     public Text ammoStats;
+    public Text health;
 
 
     Player player;
@@ -26,6 +27,7 @@ public class GameUI : MonoBehaviour
         if (player != null)
         {
             gunEquippedByPlayer = player.GetComponent<GunController>().equippedGun;
+            health.text = "Health: " + player.GetComponent<Player>().health + " / " + player.GetComponent<Player>().startingHealth;
         }
 
         if (gunEquippedByPlayer != null)

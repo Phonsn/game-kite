@@ -184,6 +184,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5726616837412320162}
+  - component: {fileID: 197190674820820139}
+  - component: {fileID: 3840430164005490512}
   m_Layer: 0
   m_Name: gunMagnum
   m_TagString: Gun
@@ -209,6 +211,68 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!114 &197190674820820139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5726616837412320161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2d6c9c65d5c0764d99ffbb64fbe59e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireMode: 2
+  projectileType: 0
+  projectileSpawn:
+  - {fileID: 5726616838243524162}
+  damage: 5
+  msBetweenShots: 100
+  burstCount: 3
+  projectilesPerMag: 6
+  reloadTime: 1
+  gunImage: {fileID: 21300000, guid: dfaa510eb1d55b64082e0689e185a6fe, type: 3}
+  grenade: {fileID: 0}
+  shootForce: 0
+  upwardForce: 0
+  projectile: {fileID: 3367149340875921683, guid: e3330959c0408784a9845505fb9d4d5b, type: 3}
+  muzzleVelocity: 35
+  minMaxSpread: {x: 1, y: 2}
+  equippedMagazine: {fileID: 0}
+  magazinePrefab: {fileID: 0}
+  shell: {fileID: 7159710373346791728, guid: 1790d0fb29bdf274eb68a8a243bd0fcc, type: 3}
+  shellEjection:
+  - {fileID: 5726616837782354706}
+  shootAudio: {fileID: 8300000, guid: 222330ab6e1e17a449244afca9069659, type: 3}
+  reloadAudio: {fileID: 8300000, guid: 4312d7b0115589a4cae6738f0416b2f3, type: 3}
+  gunKickbackMinMax: {x: 0.05, y: 0.2}
+  gunRecoilAnglePerShotMinMax: {x: 1, y: 3}
+  gunMaxRecoil: 30
+  recoilMoveSettleTime: 0.1
+  recoilRecoilSettleTime: 0.1
+--- !u!114 &3840430164005490512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5726616837412320161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfa4738bf635aeb419fa2272c8e7dd24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashHolder: {fileID: 5726616837856246471}
+  flashTime: 0.05
+  flashSprites:
+  - {fileID: 7364241777980657426, guid: 3f3d301b8ec2d5649904c3faeea8c578, type: 3}
+  - {fileID: 5563272146647128931, guid: 3f3d301b8ec2d5649904c3faeea8c578, type: 3}
+  - {fileID: 8253985805853517359, guid: 3f3d301b8ec2d5649904c3faeea8c578, type: 3}
+  - {fileID: 3107323630499632579, guid: 3f3d301b8ec2d5649904c3faeea8c578, type: 3}
+  spriteRenderers:
+  - {fileID: 2338859300069446875, guid: b39a551fa25833740a5389aa58684707, type: 3}
+  - {fileID: 6104379459463533450, guid: b39a551fa25833740a5389aa58684707, type: 3}
 --- !u!1 &5726616837513468460
 GameObject:
   m_ObjectHideFlags: 0
