@@ -58,8 +58,6 @@ public class Projectiles : MonoBehaviour
             spreadSet = true;
         }
 
-        //transform.Translate(Vector3.forward * moveDistance);
-
     }
 
     void CheckCollisions(float moveDistance)

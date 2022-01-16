@@ -51,8 +51,8 @@ public class Enemy : LivingEntity
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, playerDetectionRadius);
+        //Gizmos.color = Color.blue;
+        //Gizmos.DrawWireSphere(transform.position, playerDetectionRadius);
     }
 
     private void Awake()

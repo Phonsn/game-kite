@@ -1479,8 +1479,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponHold: {fileID: 5123473146375645738}
-  primaryGun: {fileID: 197190674820820139, guid: 8ecb6d059da668b4dbb6079952554c7c, type: 3}
-  secondaryGun: {fileID: 3505526590085762509, guid: e7089486fa1f19144934915e4225b00d, type: 3}
+  primaryGun: {fileID: -1163331187894406499, guid: 61f29df0ec9c3654eabd14ef5afda2b4, type: 3}
+  secondaryGun: {fileID: 3505526590085762509, guid: b39a551fa25833740a5389aa58684707, type: 3}
   equippedMine: {fileID: 630261528877007205, guid: 39fc086d31e3926469dabe3d5d906951, type: 3}
   equippedGun: {fileID: 0}
 --- !u!96 &5123473145380863716

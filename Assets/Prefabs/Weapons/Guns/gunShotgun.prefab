@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7434896708786809266}
+  - component: {fileID: -1163331187894406499}
+  - component: {fileID: -4227302688992600778}
   m_Layer: 0
   m_Name: gunShotgun
   m_TagString: Gun
@@ -37,6 +39,71 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!114 &-1163331187894406499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88330076676463529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2d6c9c65d5c0764d99ffbb64fbe59e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireMode: 2
+  projectileType: 0
+  projectileSpawn:
+  - {fileID: 386025549399285276}
+  - {fileID: 5720386314772129694}
+  - {fileID: 2000376741619131284}
+  damage: 5
+  msBetweenShots: 200
+  burstCount: 1
+  projectilesPerMag: 9
+  reloadTime: 1
+  gunImage: {fileID: 21300000, guid: c457b5f152021f2428524a2ffe22e6ba, type: 3}
+  grenade: {fileID: 0}
+  shootForce: 0
+  upwardForce: 0
+  projectile: {fileID: 3367149340875921683, guid: e3330959c0408784a9845505fb9d4d5b, type: 3}
+  muzzleVelocity: 35
+  minMaxSpread: {x: 0, y: 0}
+  equippedMagazine: {fileID: 0}
+  magazinePrefab: {fileID: 0}
+  shell: {fileID: 7159710373346791728, guid: 659fd34cfb5a01d4da8d80348593cc20, type: 3}
+  shellEjection:
+  - {fileID: 8711453853320160014}
+  - {fileID: 861656782548324921}
+  shootAudio: {fileID: 8300000, guid: c93831b89885fea4c9390cad8fdd34ff, type: 3}
+  reloadAudio: {fileID: 8300000, guid: d375325d72599a8498fabb334069aab0, type: 3}
+  gunKickbackMinMax: {x: 0.1, y: 0.3}
+  gunRecoilAnglePerShotMinMax: {x: 1, y: 3}
+  gunMaxRecoil: 30
+  recoilMoveSettleTime: 0.1
+  recoilRecoilSettleTime: 0.1
+--- !u!114 &-4227302688992600778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88330076676463529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfa4738bf635aeb419fa2272c8e7dd24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashHolder: {fileID: 5253607635267043182}
+  flashTime: 0.05
+  flashSprites:
+  - {fileID: 7364241777980657426, guid: 3f3d301b8ec2d5649904c3faeea8c578, type: 3}
+  - {fileID: 5563272146647128931, guid: 3f3d301b8ec2d5649904c3faeea8c578, type: 3}
+  - {fileID: 8253985805853517359, guid: 3f3d301b8ec2d5649904c3faeea8c578, type: 3}
+  - {fileID: 3107323630499632579, guid: 3f3d301b8ec2d5649904c3faeea8c578, type: 3}
+  spriteRenderers:
+  - {fileID: 5835549107786768212}
+  - {fileID: 4230720131352019987}
 --- !u!1 &1270077501399737640
 GameObject:
   m_ObjectHideFlags: 0
@@ -60,13 +127,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1270077501399737640}
-  m_LocalRotation: {x: 0, y: 0.043619405, z: 0, w: 0.9990483}
+  m_LocalRotation: {x: 0, y: 0.06104851, z: 0, w: 0.99813485}
   m_LocalPosition: {x: -0.0029995712, y: 0.15799999, z: 6.188711}
   m_LocalScale: {x: 0.93587774, y: 0.93237996, z: 1.7694473}
   m_Children: []
   m_Father: {fileID: 7434896708786809266}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 5, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 7, z: 0}
 --- !u!1 &2720601806041488662
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,13 +350,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4754954051631129261}
-  m_LocalRotation: {x: 0, y: -0.043619405, z: 0, w: 0.9990483}
+  m_LocalRotation: {x: 0, y: -0.061048605, z: 0, w: 0.99813485}
   m_LocalPosition: {x: -0.0029995712, y: 0.15799999, z: 6.188711}
   m_LocalScale: {x: 0.93587786, y: 0.93237996, z: 1.769448}
   m_Children: []
   m_Father: {fileID: 7434896708786809266}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: -5, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -7, z: 0}
 --- !u!1 &5253607635267043182
 GameObject:
   m_ObjectHideFlags: 0

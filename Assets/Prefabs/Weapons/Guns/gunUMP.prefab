@@ -215,7 +215,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 8253985805853517359, guid: 3f3d301b8ec2d5649904c3faeea8c578, type: 3}
+  m_Sprite: {fileID: 7364241777980657426, guid: 3f3d301b8ec2d5649904c3faeea8c578, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -289,7 +289,7 @@ MonoBehaviour:
   upwardForce: 0
   projectile: {fileID: 3367149340875921683, guid: e3330959c0408784a9845505fb9d4d5b, type: 3}
   muzzleVelocity: 35
-  minMaxSpread: {x: 2, y: 6}
+  minMaxSpread: {x: 2, y: 4}
   equippedMagazine: {fileID: 9196545054011642963}
   magazinePrefab: {fileID: 808644116034418329, guid: 0bb780daf2172ae4885a48d5d3c48cd0, type: 3}
   shell: {fileID: 7159710373346791728, guid: 1790d0fb29bdf274eb68a8a243bd0fcc, type: 3}
@@ -395,7 +395,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 8253985805853517359, guid: 3f3d301b8ec2d5649904c3faeea8c578, type: 3}
+  m_Sprite: {fileID: 7364241777980657426, guid: 3f3d301b8ec2d5649904c3faeea8c578, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
