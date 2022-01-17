@@ -7,10 +7,15 @@ using UnityEngine;
 
 public class Player : LivingEntity
 {
+    public Transform buildingGhostWorld;
+    public Transform objectToBuild;
 
     TwinStickController playerController;
     GunController gunController;
     TrailRenderer trailRenderer;
+
+    bool buildingModeActive;
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -19,6 +24,7 @@ public class Player : LivingEntity
         gunController = GetComponent<GunController>();
         trailRenderer = GetComponent<TrailRenderer>();
         gunController.EquipPrimaryGun();
+        buildingModeActive = false;
         ControlTrailRenderer(false);
     }
 
@@ -43,10 +49,26 @@ public class Player : LivingEntity
         yield return new WaitForSeconds(0.1f);
         flashObject.GetComponent<Renderer>().material.color = originalColor;
     }
-    
-    // Update is called once per frame
-    void Update()
+
+    public void BuildingMode()
     {
-        
+        if (buildingModeActive)
+        {
+            buildingModeActive = false;
+        } else
+        {
+            buildingModeActive = true;
+        }
+
+        buildingGhostWorld.gameObject.SetActive(buildingModeActive);
     }
+
+    public void BuildObject()
+    {
+        if (buildingGhostWorld.GetComponent<BuildingGhostWorld>().canPlaceBuilding)
+        {
+            Instantiate(objectToBuild, buildingGhostWorld.position + new Vector3(0,-.5f,0), Quaternion.identity);
+        }
+    }
+
 }

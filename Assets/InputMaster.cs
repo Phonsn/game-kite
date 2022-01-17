@@ -65,6 +65,22 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""BuildingMode"",
+                    ""type"": ""Button"",
+                    ""id"": ""07bb389b-5d19-4334-a3b1-4006726137aa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""BuildObject"",
+                    ""type"": ""Button"",
+                    ""id"": ""a16084b6-3116-4153-9ab8-323871677815"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -232,6 +248,28 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""ChangeGun"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5e67e996-0e74-4828-a7e0-57679224f44b"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardAndMouse"",
+                    ""action"": ""BuildingMode"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""773a785b-77ee-4cfc-af43-34b751b74e3b"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardAndMouse"",
+                    ""action"": ""BuildObject"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -274,6 +312,8 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_Player_PlaceMine = m_Player.FindAction("PlaceMine", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_ChangeGun = m_Player.FindAction("ChangeGun", throwIfNotFound: true);
+        m_Player_BuildingMode = m_Player.FindAction("BuildingMode", throwIfNotFound: true);
+        m_Player_BuildObject = m_Player.FindAction("BuildObject", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -329,6 +369,8 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_PlaceMine;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_ChangeGun;
+    private readonly InputAction m_Player_BuildingMode;
+    private readonly InputAction m_Player_BuildObject;
     public struct PlayerActions
     {
         private @InputMaster m_Wrapper;
@@ -339,6 +381,8 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @PlaceMine => m_Wrapper.m_Player_PlaceMine;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @ChangeGun => m_Wrapper.m_Player_ChangeGun;
+        public InputAction @BuildingMode => m_Wrapper.m_Player_BuildingMode;
+        public InputAction @BuildObject => m_Wrapper.m_Player_BuildObject;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -366,6 +410,12 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @ChangeGun.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeGun;
                 @ChangeGun.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeGun;
                 @ChangeGun.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeGun;
+                @BuildingMode.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBuildingMode;
+                @BuildingMode.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBuildingMode;
+                @BuildingMode.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBuildingMode;
+                @BuildObject.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBuildObject;
+                @BuildObject.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBuildObject;
+                @BuildObject.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBuildObject;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -388,6 +438,12 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @ChangeGun.started += instance.OnChangeGun;
                 @ChangeGun.performed += instance.OnChangeGun;
                 @ChangeGun.canceled += instance.OnChangeGun;
+                @BuildingMode.started += instance.OnBuildingMode;
+                @BuildingMode.performed += instance.OnBuildingMode;
+                @BuildingMode.canceled += instance.OnBuildingMode;
+                @BuildObject.started += instance.OnBuildObject;
+                @BuildObject.performed += instance.OnBuildObject;
+                @BuildObject.canceled += instance.OnBuildObject;
             }
         }
     }
@@ -418,5 +474,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnPlaceMine(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnChangeGun(InputAction.CallbackContext context);
+        void OnBuildingMode(InputAction.CallbackContext context);
+        void OnBuildObject(InputAction.CallbackContext context);
     }
 }

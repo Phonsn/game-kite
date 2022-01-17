@@ -22,6 +22,7 @@ public class TwinStickController : MonoBehaviour
 
     private CharacterController playerController;
     private GunController gunController;
+    private Player player;
 
     private Vector2 movement;
     private Vector2 aim;
@@ -39,18 +40,25 @@ public class TwinStickController : MonoBehaviour
     private bool playerIsSprinting;
     private bool playerSprinted;
 
+    // Building
+    public enum PlayerMode { Shooter, Builder };
+    PlayerMode currentPlayerMode;
+
     private void Awake()
     {
         playerController = GetComponent<CharacterController>();
         gunController = GetComponent<GunController>();
         playerControls = new InputMaster();
         playerInput = GetComponent<PlayerInput>();
+        player = GetComponent<Player>();
 
         playerOriginalSpeed = playerSpeed;
         playerIsPressingSprint = false;
         playerIsSprinting = false;
         playerSprinted = false;
         nextSprintAvailable = Time.time;
+
+        currentPlayerMode = PlayerMode.Shooter;
     }
 
     private void OnEnable()
@@ -66,21 +74,33 @@ public class TwinStickController : MonoBehaviour
         playerControls.Player.PlaceMine.performed += PlaceMine;
 
         playerControls.Player.ChangeGun.performed += ChangeGun;
+
+        playerControls.Player.BuildingMode.performed += BuildingMode;
+        playerControls.Player.BuildObject.performed += BuildingObject;
     }
 
     private void ShootStart(InputAction.CallbackContext obj)
     {
-        gunController.OnTriggerHold();
+        if (currentPlayerMode == PlayerMode.Shooter)
+        {
+            gunController.OnTriggerHold();
+        } else
+        {
+            player.BuildObject();
+        }
+    }
+
+    private void ShootStop(InputAction.CallbackContext obj)
+    {
+        if (currentPlayerMode == PlayerMode.Shooter)
+        {
+            gunController.OnTriggerRelease();
+        }
     }
 
     private void ChangeGun(InputAction.CallbackContext obj)
     {
         gunController.ChangeGun();
-    }
-
-    private void ShootStop(InputAction.CallbackContext obj)
-    {
-        gunController.OnTriggerRelease();
     }
 
     private void PlaceMine(InputAction.CallbackContext obj)
@@ -108,6 +128,24 @@ public class TwinStickController : MonoBehaviour
         playerSprinted = false;
     }
 
+    private void BuildingMode(InputAction.CallbackContext obj)
+    {
+        if(currentPlayerMode == PlayerMode.Shooter)
+        {
+            currentPlayerMode = PlayerMode.Builder;
+        } else
+        {
+            currentPlayerMode = PlayerMode.Shooter;
+        }
+
+        player.BuildingMode();
+    }
+
+    private void BuildingObject(InputAction.CallbackContext obj)
+    {
+        player.BuildObject();
+    }
+
     private void OnDisable()
     {
         playerControls.Disable();
@@ -118,6 +156,10 @@ public class TwinStickController : MonoBehaviour
         playerControls.Player.Sprint.canceled -= SprintStop;
 
         playerControls.Player.PlaceMine.performed -= PlaceMine;
+        playerControls.Player.ChangeGun.performed -= ChangeGun;
+
+        playerControls.Player.BuildingMode.performed -= BuildingMode;
+        playerControls.Player.BuildObject.performed -= BuildingObject;
     }
 
     void Update()

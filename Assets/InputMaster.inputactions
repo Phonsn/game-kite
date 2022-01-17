@@ -52,6 +52,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "BuildingMode",
+                    "type": "Button",
+                    "id": "07bb389b-5d19-4334-a3b1-4006726137aa",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "BuildObject",
+                    "type": "Button",
+                    "id": "a16084b6-3116-4153-9ab8-323871677815",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -217,6 +233,28 @@
                     "processors": "",
                     "groups": "KeyboardAndMouse",
                     "action": "ChangeGun",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5e67e996-0e74-4828-a7e0-57679224f44b",
+                    "path": "<Keyboard>/b",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardAndMouse",
+                    "action": "BuildingMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "773a785b-77ee-4cfc-af43-34b751b74e3b",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardAndMouse",
+                    "action": "BuildObject",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -96,7 +96,7 @@ public class GunTower : MonoBehaviour
 
                     if (!Physics.Raycast(transform.position + Vector3.up, dirToEnemy, range, whatIsBlockingSight.value))
                     {
-                        Debug.Log("ClearSight");
+                        //Debug.Log("ClearSight");
                         if (Vector3.Distance(transform.position, enemies[i].gameObject.transform.position) < shortestDistance)
                         {
                             shortestDistance = Vector3.Distance(transform.position, enemies[i].gameObject.transform.position);
